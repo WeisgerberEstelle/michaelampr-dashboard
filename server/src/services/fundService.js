@@ -45,15 +45,6 @@ async function processAllocations(allocations, amount, date) {
   );
 }
 
-function getAllocationCurrentValue(allocation, fund) {
-  const latestValo = fund.valorisations
-    .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
-
-  if (!latestValo) return 0;
-
-  return allocation.sharesAcquired * latestValo.value;
-}
-
 async function getFundsById() {
   const funds = await Fund.find({}).lean();
 
@@ -69,6 +60,5 @@ module.exports = {
   getSharePriceAtDate,
   getSharePrice,
   processAllocations,
-  getAllocationCurrentValue,
   getFundsById
 };
