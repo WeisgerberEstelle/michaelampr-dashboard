@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 
 const authRoutes = require('./routes/auth');
 const fundsRoutes = require('./routes/funds');
+const depositsRoutes = require('./routes/deposits');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/funds', fundsRoutes);
+app.use('/api/deposits', depositsRoutes);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
