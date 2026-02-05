@@ -8,8 +8,18 @@ import api from "@/lib/api";
 import FundSelector from "./FundSelector";
 import AllocationSlider, { AllocationEntry } from "./AllocationSlider";
 
+const IBAN_REGEX = /^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/;
+const BIC_REGEX = /^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/;
+
 interface DepositFormProps {
   funds: Fund[];
+}
+
+interface FieldErrors {
+  amount?: string;
+  rib?: string;
+  bic?: string;
+  date?: string;
 }
 
 export default function DepositForm({ funds }: DepositFormProps) {
@@ -24,12 +34,27 @@ export default function DepositForm({ funds }: DepositFormProps) {
   const [allocations, setAllocations] = useState<AllocationEntry[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  const getErrors = (values: { amount: string; rib: string; bic: string; date: string }): FieldErrors => {
+    const errors: FieldErrors = {};
+    if (values.amount !== "" && Number(values.amount) <= 0)
+      errors.amount = t("errorAmountPositive");
+    if (touched.rib && values.rib !== "" && !IBAN_REGEX.test(values.rib.replace(/\s/g, "").toUpperCase()))
+      errors.rib = t("errorIbanFormat");
+    if (touched.bic && values.bic !== "" && !BIC_REGEX.test(values.bic.replace(/\s/g, "").toUpperCase()))
+      errors.bic = t("errorBicFormat");
+    if (touched.date && values.date === "") errors.date = t("errorDateRequired");
+    return errors;
+  };
+
+  const fieldErrors = getErrors({ amount, rib, bic, date });
 
   const total = allocations.reduce((sum, a) => sum + a.percentage, 0);
   const isValid =
     Number(amount) > 0 &&
-    rib.trim() !== "" &&
-    bic.trim() !== "" &&
+    IBAN_REGEX.test(rib.replace(/\s/g, "").toUpperCase()) &&
+    BIC_REGEX.test(bic.replace(/\s/g, "").toUpperCase()) &&
     date !== "" &&
     allocations.length > 0 &&
     total === 100;
@@ -44,7 +69,7 @@ export default function DepositForm({ funds }: DepositFormProps) {
     );
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (!isValid) return;
 
@@ -54,8 +79,8 @@ export default function DepositForm({ funds }: DepositFormProps) {
     try {
       await api.post("/deposits", {
         amount: Number(amount),
-        rib,
-        bic,
+        rib: rib.replace(/\s/g, "").toUpperCase(),
+        bic: bic.replace(/\s/g, "").toUpperCase(),
         date,
         allocations: allocations.map(({ isin, percentage }) => ({
           isin,
@@ -70,8 +95,15 @@ export default function DepositForm({ funds }: DepositFormProps) {
     }
   };
 
-  const inputClassName =
-    "w-full rounded-lg border border-gray-200 bg-background px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary";
+  const baseInputClassName =
+    "w-full rounded-lg border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-1";
+
+  const inputClassName = (field: keyof FieldErrors) =>
+    `${baseInputClassName} ${
+      fieldErrors[field]
+        ? "border-red-300 focus:border-red-500 focus:ring-red-500"
+        : "border-gray-200 focus:border-primary focus:ring-primary"
+    }`;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
@@ -82,14 +114,21 @@ export default function DepositForm({ funds }: DepositFormProps) {
           </label>
           <input
             id="amount"
-            type="number"
-            min={0}
-            step="0.01"
+            type="text"
+            inputMode="decimal"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={(e) => {
+              const val = e.target.value;
+              if (val === "" || /^\d*\.?\d{0,2}$/.test(val)) {
+                setAmount(val);
+              }
+            }}
             placeholder={t("amountPlaceholder")}
-            className={inputClassName}
+            className={inputClassName("amount")}
           />
+          {fieldErrors.amount && (
+            <p className="mt-1 text-xs text-red-600">{fieldErrors.amount}</p>
+          )}
         </div>
 
         <div>
@@ -101,8 +140,11 @@ export default function DepositForm({ funds }: DepositFormProps) {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className={inputClassName}
+            className={inputClassName("date")}
           />
+          {fieldErrors.date && (
+            <p className="mt-1 text-xs text-red-600">{fieldErrors.date}</p>
+          )}
         </div>
 
         <div>
@@ -114,9 +156,13 @@ export default function DepositForm({ funds }: DepositFormProps) {
             type="text"
             value={rib}
             onChange={(e) => setRib(e.target.value)}
+            onBlur={() => setTouched((prev) => ({ ...prev, rib: true }))}
             placeholder={t("ribPlaceholder")}
-            className={inputClassName}
+            className={inputClassName("rib")}
           />
+          {fieldErrors.rib && (
+            <p className="mt-1 text-xs text-red-600">{fieldErrors.rib}</p>
+          )}
         </div>
 
         <div>
@@ -128,9 +174,13 @@ export default function DepositForm({ funds }: DepositFormProps) {
             type="text"
             value={bic}
             onChange={(e) => setBic(e.target.value)}
+            onBlur={() => setTouched((prev) => ({ ...prev, bic: true }))}
             placeholder={t("bicPlaceholder")}
-            className={inputClassName}
+            className={inputClassName("bic")}
           />
+          {fieldErrors.bic && (
+            <p className="mt-1 text-xs text-red-600">{fieldErrors.bic}</p>
+          )}
         </div>
       </div>
 
@@ -148,9 +198,7 @@ export default function DepositForm({ funds }: DepositFormProps) {
         />
       )}
 
-      {error && (
-        <p className="text-sm text-red-600">{error}</p>
-      )}
+      {error && <p className="text-sm text-red-600">{error}</p>}
 
       <button
         type="submit"
