@@ -15,7 +15,18 @@
   },
   "deposit": {
     "title": "Nouveau versement",
-    "loadingFunds": "Chargement des fonds..."
+    "loadingFunds": "Chargement des fonds...",
+    "amount": "Montant (EUR)",
+    "amountPlaceholder": "1000",
+    "rib": "RIB",
+    "ribPlaceholder": "FR7630001007941234567890185",
+    "bic": "BIC",
+    "bicPlaceholder": "BNPAFRPP",
+    "date": "Date du versement",
+    "submit": "Valider le versement",
+    "submitting": "Envoi en cours...",
+    "successMessage": "Versement enregistré avec succès",
+    "errorGeneric": "Une erreur est survenue"
   },
   "dashboard": {
     "title": "Dashboard"
