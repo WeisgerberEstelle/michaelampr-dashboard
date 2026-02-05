@@ -7,6 +7,12 @@
   "fundSelector": {
     "legend": "Sélectionnez vos fonds"
   },
+  "allocationSlider": {
+    "legend": "Répartition de l'investissement",
+    "percentage": "Pourcentage",
+    "total": "Total",
+    "errorTotal": "Le total doit être égal à 100%"
+  },
   "deposit": {
     "title": "Nouveau versement",
     "loadingFunds": "Chargement des fonds..."
