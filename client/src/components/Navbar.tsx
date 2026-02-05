@@ -2,23 +2,25 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
-
-const navLinks = [
-  { href: "/", label: "Dashboard" },
-  { href: "/deposit", label: "Versement" },
-];
 
 export default function Navbar() {
   const pathname = usePathname();
+  const t = useTranslations("navbar");
   const [isOpen, setIsOpen] = useState(false);
+
+  const navLinks = [
+    { href: "/", label: t("dashboard") },
+    { href: "/deposit", label: t("deposit") },
+  ];
 
   return (
     <nav className="bg-surface shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="font-title text-xl font-bold text-primary">
-            Gedeon
+            {t("brand")}
           </Link>
 
           <div className="hidden md:flex gap-6">
