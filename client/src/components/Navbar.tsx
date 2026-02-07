@@ -1,14 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const t = useTranslations("navbar");
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem("token"));
+  }, [pathname]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    router.push("/login");
+  };
 
   const navLinks = [
     { href: "/", label: t("dashboard") },
@@ -23,7 +35,7 @@ export default function Navbar() {
             {t("brand")}
           </Link>
 
-          <div className="hidden md:flex gap-6">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -37,6 +49,21 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="text-sm font-medium text-foreground-muted hover:text-primary transition-colors"
+              >
+                {t("logout")}
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="text-sm font-medium text-foreground-muted hover:text-primary transition-colors"
+              >
+                {t("login")}
+              </Link>
+            )}
           </div>
 
           <button
@@ -86,6 +113,25 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          {isLoggedIn ? (
+            <button
+              onClick={() => {
+                handleLogout();
+                setIsOpen(false);
+              }}
+              className="block w-full text-left px-4 py-3 text-sm font-medium text-foreground-muted hover:text-primary transition-colors"
+            >
+              {t("logout")}
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              onClick={() => setIsOpen(false)}
+              className="block px-4 py-3 text-sm font-medium text-foreground-muted hover:text-primary transition-colors"
+            >
+              {t("login")}
+            </Link>
+          )}
         </div>
       )}
     </nav>
