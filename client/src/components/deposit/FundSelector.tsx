@@ -1,10 +1,10 @@
 "use client";
 
-import { Fund } from "@/types/fund";
+import { FundWithLatestVL } from "@/types/fund";
 import { useTranslations } from "next-intl";
 
 interface FundSelectorProps {
-  funds: Fund[];
+  funds: FundWithLatestVL[];
   selectedIsins: string[];
   onChange: (selectedIsins: string[]) => void;
 }
@@ -15,6 +15,12 @@ export default function FundSelector({
   onChange,
 }: FundSelectorProps) {
   const t = useTranslations("fundSelector");
+
+  const formatCurrency = (value: number) =>
+    new Intl.NumberFormat("fr-FR", {
+      style: "currency",
+      currency: "EUR",
+    }).format(value);
 
   const toggleFund = (isin: string) => {
     if (selectedIsins.includes(isin)) {
@@ -47,12 +53,17 @@ export default function FundSelector({
                 onChange={() => toggleFund(fund.isin)}
                 className="accent-primary w-4 h-4 shrink-0"
               />
-              <div className="min-w-0">
+              <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-foreground truncate">
                   {fund.fundName}
                 </p>
                 <p className="text-xs text-foreground-muted">{fund.isin}</p>
               </div>
+              {fund.latestValorisation && (
+                <span className="text-sm font-semibold text-primary shrink-0">
+                  {formatCurrency(fund.latestValorisation.value)}
+                </span>
+              )}
             </label>
           );
         })}
