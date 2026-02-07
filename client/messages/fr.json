@@ -39,6 +39,10 @@
     "gain": "Plus-value",
     "loss": "Moins-value",
     "noData": "Aucune donnée disponible",
-    "evolutionTitle": "Évolution de l'épargne"
+    "evolutionTitle": "Évolution de l'épargne",
+    "allocationTitle": "Répartition par fonds",
+    "historyTitle": "Historique des versements",
+    "noTransactions": "Aucun versement",
+    "shares": "parts"
   }
 }
