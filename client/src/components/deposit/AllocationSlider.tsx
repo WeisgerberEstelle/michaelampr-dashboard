@@ -1,6 +1,6 @@
 "use client";
 
-import { Fund } from "@/types/fund";
+import { FundWithLatestVL } from "@/types/fund";
 import { useTranslations } from "next-intl";
 
 export interface AllocationEntry {
@@ -9,7 +9,7 @@ export interface AllocationEntry {
 }
 
 interface AllocationSliderProps {
-  funds: Fund[];
+  funds: FundWithLatestVL[];
   allocations: AllocationEntry[];
   onChange: (allocations: AllocationEntry[]) => void;
 }
