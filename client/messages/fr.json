@@ -38,6 +38,7 @@
     "totalInvested": "Montant investi",
     "gain": "Plus-value",
     "loss": "Moins-value",
-    "noData": "Aucune donnée disponible"
+    "noData": "Aucune donnée disponible",
+    "evolutionTitle": "Évolution de l'épargne"
   }
 }
