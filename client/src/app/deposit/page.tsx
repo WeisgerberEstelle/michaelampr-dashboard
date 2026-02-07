@@ -1,12 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useFunds } from "@/lib/hooks/useFunds";
+import { useFundsLatestVL } from "@/lib/hooks/useFunds";
 import DepositForm from "@/components/deposit/DepositForm";
 
 export default function DepositPage() {
   const t = useTranslations("deposit");
-  const { data: funds, isLoading } = useFunds();
+  const { data: funds, isLoading } = useFundsLatestVL();
 
   return (
     <div>
