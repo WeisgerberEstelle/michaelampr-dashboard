@@ -2,7 +2,9 @@
   "navbar": {
     "brand": "Gedeon",
     "dashboard": "Dashboard",
-    "deposit": "Versement"
+    "deposit": "Versement",
+    "logout": "Déconnexion",
+    "login": "Connexion"
   },
   "fundSelector": {
     "legend": "Sélectionnez vos fonds"
