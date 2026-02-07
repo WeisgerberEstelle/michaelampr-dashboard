@@ -44,5 +44,18 @@
     "historyTitle": "Historique des versements",
     "noTransactions": "Aucun versement",
     "shares": "parts"
+  },
+  "login": {
+    "title": "Connexion",
+    "email": "Email",
+    "emailPlaceholder": "votre@email.com",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "••••••••",
+    "submit": "Se connecter",
+    "submitting": "Connexion...",
+    "errorInvalid": "Email ou mot de passe incorrect",
+    "errorGeneric": "Une erreur est survenue",
+    "noAccount": "Pas encore de compte ?",
+    "register": "S'inscrire"
   }
 }
