@@ -3,3 +3,12 @@ export interface Fund {
   isin: string;
   fundName: string;
 }
+
+export interface FundWithLatestVL {
+  isin: string;
+  fundName: string;
+  latestValorisation: {
+    date: string;
+    value: number;
+  } | null;
+}
