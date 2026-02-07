@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { Fund } from "@/types/fund";
+import { FundWithLatestVL } from "@/types/fund";
 import api from "@/lib/api";
 import FundSelector from "./FundSelector";
 import AllocationSlider, { AllocationEntry } from "./AllocationSlider";
@@ -12,7 +12,7 @@ const IBAN_REGEX = /^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/;
 const BIC_REGEX = /^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/;
 
 interface DepositFormProps {
-  funds: Fund[];
+  funds: FundWithLatestVL[];
 }
 
 interface FieldErrors {
