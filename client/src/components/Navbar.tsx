@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
@@ -31,8 +32,8 @@ export default function Navbar() {
     <nav className="bg-surface shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="font-title text-xl font-bold text-primary">
-            {t("brand")}
+          <Link href="/">
+            <Image src="/logo.svg" alt="logo" width={40} height={40} priority />
           </Link>
 
           <div className="hidden md:flex items-center gap-6">

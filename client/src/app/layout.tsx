@@ -18,7 +18,7 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "Gedeon Dashboard",
+  title: "Dashboard",
   description: "Investment funds dashboard",
 };
 
