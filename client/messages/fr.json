@@ -33,6 +33,16 @@
     "errorDateRequired": "La date est requise"
   },
   "dashboard": {
-    "title": "Dashboard"
+    "title": "Dashboard",
+    "totalSavings": "Épargne totale",
+    "totalInvested": "Montant investi",
+    "gain": "Plus-value",
+    "loss": "Moins-value",
+    "noData": "Aucune donnée disponible",
+    "evolutionTitle": "Évolution de l'épargne",
+    "allocationTitle": "Répartition par fonds",
+    "historyTitle": "Historique des versements",
+    "noTransactions": "Aucun versement",
+    "shares": "parts"
   }
 }
