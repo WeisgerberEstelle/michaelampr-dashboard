@@ -36,19 +36,20 @@ export default function Navbar() {
           </Link>
 
           <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`font-title text-sm font-medium py-5 border-b-2 transition-colors ${
-                  pathname === link.href
-                    ? "border-primary text-primary"
-                    : "border-transparent text-foreground-muted hover:text-primary"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {isLoggedIn &&
+              navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`font-title text-sm font-medium py-5 border-b-2 transition-colors ${
+                    pathname === link.href
+                      ? "border-primary text-primary"
+                      : "border-transparent text-foreground-muted hover:text-primary"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
@@ -99,20 +100,21 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="md:hidden border-t border-gray-100">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className={`block px-4 py-3 text-sm font-medium transition-colors ${
-                pathname === link.href
-                  ? "text-primary bg-primary/5"
-                  : "text-foreground-muted hover:text-primary"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {isLoggedIn &&
+            navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className={`block px-4 py-3 text-sm font-medium transition-colors ${
+                  pathname === link.href
+                    ? "text-primary bg-primary/5"
+                    : "text-foreground-muted hover:text-primary"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
           {isLoggedIn ? (
             <button
               onClick={() => {
