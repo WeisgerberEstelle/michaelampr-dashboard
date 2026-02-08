@@ -8,17 +8,17 @@ export interface AllocationEntry {
   percentage: number;
 }
 
-interface AllocationSliderProps {
+interface AllocationInputsProps {
   funds: FundWithLatestVL[];
   allocations: AllocationEntry[];
   onChange: (allocations: AllocationEntry[]) => void;
 }
 
-export default function AllocationSlider({
+export default function AllocationInputs({
   funds,
   allocations,
   onChange,
-}: AllocationSliderProps) {
+}: AllocationInputsProps) {
   const t = useTranslations("allocationSlider");
 
   const total = allocations.reduce((sum, a) => sum + a.percentage, 0);

@@ -55,8 +55,8 @@ export default function SavingsLineChart({ data }: SavingsLineChartProps) {
               width={80}
             />
             <Tooltip
-              formatter={(value: number) => [formatCurrency(value), "Valeur"]}
-              labelFormatter={formatDate}
+              formatter={(value) => [formatCurrency(Number(value ?? 0)), "Valeur"]}
+              labelFormatter={(label) => formatDate(String(label))}
               contentStyle={{
                 backgroundColor: "#fff",
                 border: "1px solid #e5e7eb",

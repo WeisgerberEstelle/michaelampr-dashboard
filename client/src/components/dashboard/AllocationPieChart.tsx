@@ -54,7 +54,7 @@ export default function AllocationPieChart({ data }: AllocationPieChartProps) {
               cy="50%"
               outerRadius={80}
               label={({ name, percent }) =>
-                `${name.split(" ")[0]} ${(percent * 100).toFixed(0)}%`
+                `${(name ?? "").split(" ")[0]} ${((percent ?? 0) * 100).toFixed(0)}%`
               }
               labelLine={false}
             >
@@ -63,7 +63,7 @@ export default function AllocationPieChart({ data }: AllocationPieChartProps) {
               ))}
             </Pie>
             <Tooltip
-              formatter={(value: number) => formatCurrency(value)}
+              formatter={(value) => formatCurrency(Number(value ?? 0))}
               contentStyle={{
                 backgroundColor: "#fff",
                 border: "1px solid #e5e7eb",
