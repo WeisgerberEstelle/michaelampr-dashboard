@@ -1,17 +1,23 @@
 const Fund = require('../models/Fund');
 
-function getSharePrice(fund, date) {
+function getSharePriceAtDate(fund, date) {
   const targetDate = new Date(date);
 
   const valorisation = fund.valorisations
     .filter(v => new Date(v.date) <= targetDate)
     .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
 
-  if (!valorisation) {
+  return valorisation ? valorisation.value : null;
+}
+
+function getSharePrice(fund, date) {
+  const price = getSharePriceAtDate(fund, date);
+
+  if (price === null) {
     throw new Error(`No valuation found for fund ${fund.fundName} on or before ${date}`);
   }
 
-  return valorisation.value;
+  return price;
 }
 
 async function processAllocations(allocations, amount, date) {
@@ -39,7 +45,20 @@ async function processAllocations(allocations, amount, date) {
   );
 }
 
+async function getFundsById() {
+  const funds = await Fund.find({}).lean();
+
+  const fundsById = {};
+  funds.forEach(fund => {
+    fundsById[fund._id.toString()] = fund;
+  });
+
+  return fundsById;
+}
+
 module.exports = {
+  getSharePriceAtDate,
   getSharePrice,
-  processAllocations
+  processAllocations,
+  getFundsById
 };
