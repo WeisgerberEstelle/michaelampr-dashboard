@@ -1,4 +1,4 @@
-# Gedeon Dashboard
+# Dashboard
 
 Dashboard de gestion d'épargne et de fonds d'investissement.
 
