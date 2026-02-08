@@ -1,0 +1,16 @@
+{
+  "navbar": {
+    "brand": "Gedeon",
+    "dashboard": "Dashboard",
+    "deposit": "Versement"
+  },
+  "fundSelector": {
+    "legend": "Sélectionnez vos fonds"
+  },
+  "deposit": {
+    "title": "Nouveau versement"
+  },
+  "dashboard": {
+    "title": "Dashboard"
+  }
+}
