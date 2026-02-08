@@ -7,8 +7,30 @@
   "fundSelector": {
     "legend": "Sélectionnez vos fonds"
   },
+  "allocationSlider": {
+    "legend": "Répartition de l'investissement",
+    "percentage": "Pourcentage",
+    "total": "Total",
+    "errorTotal": "Le total doit être égal à 100%"
+  },
   "deposit": {
-    "title": "Nouveau versement"
+    "title": "Nouveau versement",
+    "loadingFunds": "Chargement des fonds...",
+    "amount": "Montant (EUR)",
+    "amountPlaceholder": "1000",
+    "rib": "RIB",
+    "ribPlaceholder": "FR7630001007941234567890185",
+    "bic": "BIC",
+    "bicPlaceholder": "BNPAFRPP",
+    "date": "Date du versement",
+    "submit": "Valider le versement",
+    "submitting": "Envoi en cours...",
+    "successMessage": "Versement enregistré avec succès",
+    "errorGeneric": "Une erreur est survenue",
+    "errorAmountPositive": "Le montant doit être supérieur à 0",
+    "errorIbanFormat": "Format IBAN invalide (ex : FR7630001007941234567890185)",
+    "errorBicFormat": "Format BIC invalide (ex : BNPAFRPP)",
+    "errorDateRequired": "La date est requise"
   },
   "dashboard": {
     "title": "Dashboard"
