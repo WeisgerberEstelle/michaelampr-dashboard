@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { FundWithLatestVL } from "@/types/fund";
 import api from "@/lib/api";
 import FundSelector from "./FundSelector";
-import AllocationSlider, { AllocationEntry } from "./AllocationSlider";
+import AllocationInputs, { AllocationEntry } from "./AllocationInputs";
 
 const IBAN_REGEX = /^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/;
 const BIC_REGEX = /^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/;
@@ -191,7 +191,7 @@ export default function DepositForm({ funds }: DepositFormProps) {
       />
 
       {selectedIsins.length > 0 && (
-        <AllocationSlider
+        <AllocationInputs
           funds={funds}
           allocations={allocations}
           onChange={setAllocations}
